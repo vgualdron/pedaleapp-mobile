@@ -27,7 +27,7 @@ const StackNavigator = createStackNavigator(
   {
     Login: Login,
     Home: Home,
-    Details: Detail,
+    Detail: Detail,
   },
   {
     initialRouteName: "Login",

@@ -40,9 +40,9 @@
           </nb-item>
         </nb-form>
         <view :style="{ marginTop: 10 }">
-          <nb-button block :on-press="login">
-            <nb-spinner v-if="logging" size="small" />
-            <nb-text>Iniciar sesión </nb-text>
+          <nb-button block :on-press="login" class="btn">
+            <!-- <nb-spinner v-if="logging" size="small" /> -->
+            <nb-text>Iniciar sesión</nb-text>
           </nb-button>
         </view>
       </nb-content>
@@ -53,8 +53,8 @@
 <script>
 import Container from "../components/containers/Container.vue";
 import { required, email } from "vuelidate/lib/validators";
-import { Toast } from "native-base";
 // import { Dimensions, Platform, AsyncStorage } from "react-native";
+import store from '../store';
 export default {
   data: function () {
     return {
@@ -78,18 +78,18 @@ export default {
       required,
     },
   },
+  computed: {
+    userData () {
+      return store.state.user;
+    }
+  },
   methods: {
-    changeUser(value) {
-      this.user = value;
-    },
-    changePassword(value) {
-      this.password = value;
-    },
-    login() {
-      Toast.show({
-        text: this.email,
-        buttonText: "Ok",
+    async login() {
+      await store.dispatch('REGISTER_USER', {
+        email: this.email,
+        password: this.password
       });
+      
     },
   },
 };
